@@ -1,0 +1,27 @@
+extends: team01_B6_bridge.yaml
+
+name: team01_B7_bridge
+output: {name: team01, tag: B7_bridge}
+
+env_config:
+  reward:
+    bridge_stalemate_max_range_m: 3200.0
+    reacquire_turnin_range_m: 3200.0
+  initial_scenario:
+    shared_randomization: {enabled: true, n_m: 35.0, e_m: 35.0, d_m: 45.0, speed_mps: 6.0}
+    ownship_randomization: {enabled: true, radius: 30.0, r_roll: 5.0, r_pitch: 3.0, r_heading: 5.0, speed_mps: 6.0}
+    target_randomization: {enabled: true, radius: 35.0, r_roll: 5.0, r_pitch: 3.0, r_heading: 5.0, speed_mps: 6.0}
+    scenarios:
+      # Exact states sampled from the 2026-08-22 ABCDE Viewer match, plus mirrored support.
+      - {name: b7_vm_f1804_r, weight: 1.5, target_mode: behavior_tree, ownship: [0.0, 0.0, -5592.9, 67.1, -27.5, 49.5, 193.1], target: [-678.4, 123.2, -5916.5, 105.1, 10.6, -105.0, 161.1]}
+      - {name: b7_vm_f1804_l, weight: 1.5, target_mode: behavior_tree, ownship: [0.0, 0.0, -5592.9, -67.1, -27.5, 130.5, 193.1], target: [678.4, 123.2, -5916.5, -105.1, 10.6, 285.0, 161.1]}
+      - {name: b7_vm_f6883_r, weight: 1.5, target_mode: behavior_tree, ownship: [0.0, 0.0, -4531.2, 54.2, -28.8, 53.1, 226.2], target: [-1375.4, -120.8, -5704.3, 116.7, 15.1, -98.1, 183.7]}
+      - {name: b7_vm_f6883_l, weight: 1.5, target_mode: behavior_tree, ownship: [0.0, 0.0, -4531.2, -54.2, -28.8, 126.9, 226.2], target: [1375.4, -120.8, -5704.3, -116.7, 15.1, 278.1, 183.7]}
+      - {name: b7_vm_f6961_r, weight: 1.5, target_mode: behavior_tree, ownship: [0.0, 0.0, -4365.1, 47.6, -18.8, 67.9, 232.7], target: [-1604.8, -525.6, -5768.3, 118.5, 5.7, -87.0, 184.1]}
+      - {name: b7_vm_f6961_l, weight: 1.5, target_mode: behavior_tree, ownship: [0.0, 0.0, -4365.1, -47.6, -18.8, 112.1, 232.7], target: [1604.8, -525.6, -5768.3, -118.5, 5.7, 267.0, 184.1]}
+      - {name: b7_vm_f8786_r, weight: 1.5, target_mode: behavior_tree, ownship: [0.0, 0.0, -4366.8, 24.6, 8.7, 64.3, 235.9], target: [-1751.6, -998.2, -6014.8, 121.7, 0.9, -73.7, 187.9]}
+      - {name: b7_vm_f8786_l, weight: 1.5, target_mode: behavior_tree, ownship: [0.0, 0.0, -4366.8, -24.6, 8.7, 115.7, 235.9], target: [1751.6, -998.2, -6014.8, -121.7, 0.9, 253.7, 187.9]}
+
+notes:
+  - "B7 is the end-to-end Viewer transfer stage built from the actual uncovered trajectory, not a guessed wider selector gate."
+  - "It preserves the B-series bridge reward and requires safe A/E handoff under roll, speed, altitude, and range mismatch."

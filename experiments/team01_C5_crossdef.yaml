@@ -1,0 +1,25 @@
+extends: team01_C4_crossdef.yaml
+
+name: team01_C5_crossdef
+output: {name: team01, tag: C5_crossdef}
+
+env_config:
+  reward:
+    danger_exposure_target_ata_deg: 6.0
+    danger_exposure_own_ata_deg: 25.0
+  initial_scenario:
+    shared_randomization: {enabled: true, n_m: 35.0, e_m: 35.0, d_m: 40.0, speed_mps: 6.0}
+    ownship_randomization: {enabled: true, radius: 30.0, r_roll: 4.0, r_pitch: 2.5, r_heading: 4.0, speed_mps: 6.0}
+    target_randomization: {enabled: true, radius: 35.0, r_roll: 4.0, r_pitch: 2.5, r_heading: 4.0, speed_mps: 6.0}
+    scenarios:
+      - {name: c5_55_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [696.3, 487.5, -4572.0, 0.0, 0.0, 219.0, 250.0]}
+      - {name: c5_55_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [-696.3, 487.5, -4572.0, 0.0, 0.0, 321.0, 250.0]}
+      - {name: c5_45_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [707.1, 707.1, -4572.0, 0.0, 0.0, 227.0, 250.0]}
+      - {name: c5_45_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [-707.1, 707.1, -4572.0, 0.0, 0.0, 313.0, 250.0]}
+      - {name: c5_38_r_measured, weight: 2.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [558.4, 714.7, -4572.0, 0.0, 0.0, 233.2, 250.0]}
+      - {name: c5_38_l_measured, weight: 2.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [-558.4, 714.7, -4572.0, 0.0, 0.0, 306.8, 250.0]}
+      - {name: c5_30_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [600.0, 1039.2, -4572.0, 0.0, 0.0, 241.0, 250.0]}
+      - {name: c5_30_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [-600.0, 1039.2, -4572.0, 0.0, 0.0, 299.0, 250.0]}
+
+notes:
+  - "C5 contains the measured Phase-3 38deg/1.2deg/907m threat and nearby mirrored support."

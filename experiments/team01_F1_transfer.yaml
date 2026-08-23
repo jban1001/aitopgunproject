@@ -1,0 +1,38 @@
+extends: team01_F1_merge.yaml
+
+name: team01_F1_transfer
+output: {name: team01, tag: F1_transfer}
+
+env_config:
+  reward:
+    # F ends when it has denied the frontal shot and delivered an energetic
+    # state inside B7's proven neutral/high-aspect envelope. Cross and the old
+    # post-cross attack handoff belong to B/C and are no longer F objectives.
+    merge_cross_reward: 0.0
+    merge_handoff_scale: 0.0
+    merge_handoff_bonus: 0.0
+    merge_turnin_scale: 0.0
+    merge_stalemate_penalty: 0.0
+    bridge_enabled: true
+    bridge_min_speed_mps: 180.0
+    bridge_gun_range_m: 0.0
+    bridge_gun_ata_deg: 0.0
+    bridge_position_range_m: 3200.0
+    bridge_position_ata_deg: 140.0
+    bridge_position_target_ata_deg: 45.0
+    bridge_entry_scale: 0.25
+    bridge_entry_bonus: 12.0
+    bridge_stalemate_min_range_m: 800.0
+    bridge_stalemate_max_range_m: 3200.0
+    bridge_stalemate_min_ata_deg: 35.0
+    bridge_stalemate_max_ata_deg: 145.0
+    bridge_stalemate_closure_m: 5.0
+    bridge_stalemate_penalty: 0.15
+
+runtime:
+  init_bundle: C:/Users/JUN/Desktop/airop/Release_260722_plz/artifacts/models/team01/B7_bridge/bundle_000140
+  restore_checkpoint: null
+
+notes:
+  - "F1-transfer rewards safe energetic delivery into B/C coverage, not cross or kill completion."
+  - "The 180m/s floor prevents a low-energy state from counting as a valid selector transfer."

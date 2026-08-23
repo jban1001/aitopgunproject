@@ -1,0 +1,20 @@
+extends: team01_C2_crossdef.yaml
+
+name: team01_C3_crossdef
+output: {name: team01, tag: C3_crossdef}
+
+env_config:
+  reward:
+    danger_exposure_target_ata_deg: 10.0
+    danger_exposure_own_ata_deg: 75.0
+  initial_scenario:
+    scenarios:
+      - {name: c3_115_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [679.7, -317.0, -4572.0, 0.0, 0.0, 162.0, 250.0]}
+      - {name: c3_115_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [-679.7, -317.0, -4572.0, 0.0, 0.0, 18.0, 250.0]}
+      - {name: c3_102_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [880.3, -187.1, -4572.0, 0.0, 0.0, 173.0, 250.0]}
+      - {name: c3_102_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [-880.3, -187.1, -4572.0, 0.0, 0.0, 7.0, 250.0]}
+      - {name: c3_90_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [1050.0, 0.0, -4572.0, 0.0, 0.0, 184.0, 250.0]}
+      - {name: c3_90_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [-1050.0, 0.0, -4572.0, 0.0, 0.0, 356.0, 250.0]}
+
+notes:
+  - "C3 is the beam/crossing bridge. It is still easier than the observed 38-degree event."

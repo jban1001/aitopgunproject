@@ -1,0 +1,17 @@
+extends: team01_F3_transfer.yaml
+
+name: team01_F4_transfer
+output: {name: team01, tag: F4_transfer}
+
+env_config:
+  selfplay_bt_prob: 0.75
+  selfplay_bt_opponents:
+    - {dll: AIP_CodexAdaptiveFighter.dll, rule: Rule_codex_defense_specialist.xml, weight: 2.0}
+    - {dll: AIP_CodexAdaptiveFighter.dll, rule: Rule_codex_neutral_specialist.xml, weight: 3.0}
+    - {dll: AIP_CodexAdaptiveFighter.dll, rule: Rule_codex_offense_specialist.xml, weight: 4.0}
+    - {dll: AIP_Team01_v12.dll, rule: Rule_codex_champion_v1.xml, weight: 4.0}
+    - {dll: AIP_Team01_v12.dll, rule: Rule_codex_altitude_denial.xml, weight: 2.0}
+    - {dll: AIP_DCS_codex.dll, rule: training_assets/opponents/Rule_team01_weapon_v7.xml, weight: 1.0}
+
+notes:
+  - "F4-transfer validates the safe-transfer contract against the diverse BT league."

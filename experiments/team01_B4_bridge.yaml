@@ -1,0 +1,20 @@
+extends: team01_B3_bridge.yaml
+
+name: team01_B4_bridge
+output: {name: team01, tag: B4_bridge}
+
+env_config:
+  initial_scenario:
+    shared_randomization: {enabled: true, n_m: 80.0, e_m: 80.0, d_m: 90.0, speed_mps: 10.0}
+    ownship_randomization: {enabled: true, radius: 60.0, r_roll: 8.0, r_pitch: 4.0, r_heading: 8.0, speed_mps: 10.0}
+    target_randomization: {enabled: true, radius: 70.0, r_roll: 8.0, r_pitch: 4.0, r_heading: 10.0, speed_mps: 10.0}
+    scenarios:
+      - {name: b4_fast_low_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4272.0, 0.0, 0.0, 90.0, 240.0], target: [1931.9, 517.6, -4572.0, 0.0, 0.0, 265.0, 205.0]}
+      - {name: b4_fast_low_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4272.0, 0.0, 0.0, 90.0, 240.0], target: [-1931.9, 517.6, -4572.0, 0.0, 0.0, 275.0, 205.0]}
+      - {name: b4_slow_high_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4872.0, 0.0, 0.0, 90.0, 200.0], target: [1931.9, 517.6, -4572.0, 0.0, 0.0, 265.0, 240.0]}
+      - {name: b4_slow_high_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4872.0, 0.0, 0.0, 90.0, 200.0], target: [-1931.9, 517.6, -4572.0, 0.0, 0.0, 275.0, 240.0]}
+      - {name: b4_85_60_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [2191.6, 191.7, -4572.0, 0.0, 0.0, 245.0, 225.0]}
+      - {name: b4_85_60_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [-2191.6, 191.7, -4572.0, 0.0, 0.0, 295.0, 225.0]}
+
+notes:
+  - "B4 adds speed and altitude mismatch while preserving the same selector handoff contract."

@@ -1,0 +1,19 @@
+extends: team01_B2_bridge.yaml
+
+name: team01_B3_bridge
+output: {name: team01, tag: B3_bridge}
+
+env_config:
+  reward:
+    bridge_stalemate_penalty: 0.22
+  initial_scenario:
+    scenarios:
+      - {name: b3_90_90_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 220.0], target: [1800.0, 0.0, -4572.0, 0.0, 0.0, 270.0, 220.0]}
+      - {name: b3_90_90_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 220.0], target: [-1800.0, 0.0, -4572.0, 0.0, 0.0, 270.0, 220.0]}
+      - {name: b3_95_85_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 220.0], target: [1992.4, -174.3, -4572.0, 0.0, 0.0, 260.0, 220.0]}
+      - {name: b3_95_85_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 220.0], target: [-1992.4, -174.3, -4572.0, 0.0, 0.0, 280.0, 220.0]}
+      - {name: b3_100_70_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 220.0], target: [2166.6, -382.0, -4572.0, 0.0, 0.0, 240.0, 220.0]}
+      - {name: b3_100_70_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 220.0], target: [-2166.6, -382.0, -4572.0, 0.0, 0.0, 300.0, 220.0]}
+
+notes:
+  - "B3 targets equal-speed two-circle stalemate and requires an actual handoff, not orbiting."

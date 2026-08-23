@@ -1,0 +1,20 @@
+extends: team01_C3_crossdef.yaml
+
+name: team01_C4_crossdef
+output: {name: team01, tag: C4_crossdef}
+
+env_config:
+  reward:
+    danger_exposure_target_ata_deg: 8.0
+    danger_exposure_own_ata_deg: 45.0
+  initial_scenario:
+    scenarios:
+      - {name: c4_85_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [797.0, 69.7, -4572.0, 0.0, 0.0, 190.0, 250.0]}
+      - {name: c4_85_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [-797.0, 69.7, -4572.0, 0.0, 0.0, 350.0, 250.0]}
+      - {name: c4_72_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [903.5, 293.6, -4572.0, 0.0, 0.0, 201.0, 250.0]}
+      - {name: c4_72_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [-903.5, 293.6, -4572.0, 0.0, 0.0, 339.0, 250.0]}
+      - {name: c4_60_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [952.6, 550.0, -4572.0, 0.0, 0.0, 212.0, 250.0]}
+      - {name: c4_60_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [-952.6, 550.0, -4572.0, 0.0, 0.0, 328.0, 250.0]}
+
+notes:
+  - "C4 enters the forward-quarter threat envelope without yet training on the exact Viewer event."

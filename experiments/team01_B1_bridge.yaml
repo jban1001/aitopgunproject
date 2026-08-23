@@ -1,0 +1,58 @@
+extends: team01_E7_tail.yaml
+
+name: team01_B1_bridge
+output: {name: team01, tag: B1_bridge}
+
+env_config:
+  selfplay_bt_prob: 0.0
+  reward:
+    # B owns only selector no-man's-land.  Reaching either A's gun entry or
+    # E's positional entry is success; finishing the fight is another expert's job.
+    bridge_enabled: true
+    bridge_gun_range_m: 1400.0
+    bridge_gun_ata_deg: 30.0
+    bridge_position_range_m: 1600.0
+    bridge_position_ata_deg: 60.0
+    bridge_position_target_ata_deg: 90.0
+    bridge_entry_scale: 0.25
+    bridge_entry_bonus: 12.0
+    bridge_stalemate_min_range_m: 800.0
+    bridge_stalemate_max_range_m: 2600.0
+    bridge_stalemate_min_ata_deg: 35.0
+    bridge_stalemate_max_ata_deg: 105.0
+    bridge_stalemate_closure_m: 5.0
+    bridge_stalemate_penalty: 0.15
+    angle_advantage_scale: 0.8
+    angle_advantage_progress_scale: 0.8
+    reacquire_turnin_range_m: 2600.0
+    reacquire_turnin_ata_deg: 120.0
+    reacquire_turnin_scale: 0.4
+    merge_enabled: false
+  initial_scenario:
+    mode: scenario_pool
+    shared_randomization: {enabled: true, n_m: 45.0, e_m: 45.0, d_m: 50.0, speed_mps: 7.0}
+    ownship_randomization: {enabled: true, radius: 35.0, r_roll: 5.0, r_pitch: 3.0, r_heading: 5.0, speed_mps: 7.0}
+    target_randomization: {enabled: true, radius: 45.0, r_roll: 5.0, r_pitch: 3.0, r_heading: 5.0, speed_mps: 7.0}
+    scenarios:
+      - {name: b1_65_85_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [1178.2, 549.2, -4572.0, 0.0, 0.0, 290.0, 230.0]}
+      - {name: b1_65_85_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [-1178.2, 549.2, -4572.0, 0.0, 0.0, 250.0, 230.0]}
+      - {name: b1_70_80_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [1409.5, 513.0, -4572.0, 0.0, 0.0, 280.0, 230.0]}
+      - {name: b1_70_80_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [-1409.5, 513.0, -4572.0, 0.0, 0.0, 260.0, 230.0]}
+      - {name: b1_62_88_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [1235.4, 657.2, -4572.0, 0.0, 0.0, 296.0, 230.0]}
+      - {name: b1_62_88_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [-1235.4, 657.2, -4572.0, 0.0, 0.0, 244.0, 230.0]}
+
+runtime:
+  init_bundle: C:/Users/JUN/Desktop/airop/Release_260722_plz/artifacts/models/team01/E7_tail/bundle_000060
+  restore_checkpoint: null
+  iterations: 300
+  num_env_runners: 2
+  lightweight_bundle_frequency: 10
+  native_checkpoint_frequency: 25
+  save_native_checkpoint: true
+
+policy_probe: {enabled: true, interval: 25, steps: 4, print: false}
+engagement_log: {enabled: true, interval: 25, steps: 600, episodes: 6, print: false}
+
+notes:
+  - "B1 begins just outside E/A selector entry and learns a short, safe handoff."
+  - "Promotion uses bridge entry/dwell and safety, never timeout survival alone."

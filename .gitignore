@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+.env
+
+# Training outputs
+artifacts/
+ray_results/
+checkpoints/
+*.log
+*.csv
+*.jsonl
+
+# Models and native binaries
+*.pkl
+*.pkl.gz
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.dll
+*.lib
+*.pdb
+
+# Competition packages and private submission material
+Release_submit/
+student/my_submission.py
+student/submission.py
+*.xml
+*.pptx
+*.zip
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

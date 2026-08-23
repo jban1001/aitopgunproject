@@ -1,0 +1,28 @@
+extends: team01_B5_bridge.yaml
+
+name: team01_B6_bridge
+output: {name: team01, tag: B6_bridge}
+
+env_config:
+  reward:
+    # The Viewer match spent most of its time beyond B3-B5's <=100-degree envelope.
+    # Keep the same A/E handoff objective, but recognize the measured wider orbit.
+    bridge_stalemate_max_range_m: 3000.0
+    reacquire_turnin_range_m: 3000.0
+  initial_scenario:
+    shared_randomization: {enabled: true, n_m: 50.0, e_m: 50.0, d_m: 60.0, speed_mps: 7.0}
+    ownship_randomization: {enabled: true, radius: 40.0, r_roll: 6.0, r_pitch: 3.0, r_heading: 6.0, speed_mps: 7.0}
+    target_randomization: {enabled: true, radius: 50.0, r_roll: 6.0, r_pitch: 3.0, r_heading: 7.0, speed_mps: 7.0}
+    scenarios:
+      - {name: b6_105_75_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [2414.8, -647.0, -4572.0, 0.0, 0.0, 240.0, 225.0]}
+      - {name: b6_105_75_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [-2414.8, -647.0, -4572.0, 0.0, 0.0, 300.0, 225.0]}
+      - {name: b6_115_85_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [1993.9, -929.8, -4572.0, 0.0, 0.0, 240.0, 225.0]}
+      - {name: b6_115_85_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [-1993.9, -929.8, -4572.0, 0.0, 0.0, 300.0, 225.0]}
+      - {name: b6_125_95_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [1556.4, -1089.8, -4572.0, 0.0, 0.0, 240.0, 225.0]}
+      - {name: b6_125_95_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [-1556.4, -1089.8, -4572.0, 0.0, 0.0, 300.0, 225.0]}
+      - {name: b6_135_105_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [1131.4, -1131.4, -4572.0, 0.0, 0.0, 240.0, 225.0]}
+      - {name: b6_135_105_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [-1131.4, -1131.4, -4572.0, 0.0, 0.0, 300.0, 225.0]}
+
+notes:
+  - "B6 extends the bridge into the measured mutual high-aspect band without changing its A/E handoff objective."
+  - "Promotion still requires real bridge entry, dwell, survival, and low stalemate rather than timeout survival."

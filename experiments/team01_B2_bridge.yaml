@@ -1,0 +1,17 @@
+extends: team01_B1_bridge.yaml
+
+name: team01_B2_bridge
+output: {name: team01, tag: B2_bridge}
+
+env_config:
+  initial_scenario:
+    scenarios:
+      - {name: b2_75_75_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [1352.3, 362.3, -4572.0, 0.0, 0.0, 270.0, 230.0]}
+      - {name: b2_75_75_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [-1352.3, 362.3, -4572.0, 0.0, 0.0, 270.0, 230.0]}
+      - {name: b2_80_70_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [1575.7, 277.8, -4572.0, 0.0, 0.0, 260.0, 230.0]}
+      - {name: b2_80_70_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [-1575.7, 277.8, -4572.0, 0.0, 0.0, 280.0, 230.0]}
+      - {name: b2_85_65_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [1793.2, 156.9, -4572.0, 0.0, 0.0, 250.0, 230.0]}
+      - {name: b2_85_65_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [-1793.2, 156.9, -4572.0, 0.0, 0.0, 290.0, 230.0]}
+
+notes:
+  - "B2 moves from the easy handoff boundary into balanced neutral geometry."

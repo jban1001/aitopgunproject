@@ -1,0 +1,20 @@
+extends: team01_F1_transfer.yaml
+
+name: team01_F2_transfer
+output: {name: team01, tag: F2_transfer}
+
+env_config:
+  initial_scenario:
+    shared_randomization: {enabled: true, n_m: 55.0, e_m: 55.0, d_m: 55.0, speed_mps: 7.0}
+    ownship_randomization: {enabled: true, radius: 40.0, r_roll: 5.0, r_pitch: 3.0, r_heading: 5.0, speed_mps: 7.0}
+    target_randomization: {enabled: true, radius: 45.0, r_roll: 5.0, r_pitch: 3.0, r_heading: 5.0, speed_mps: 7.0}
+    scenarios:
+      - {name: f2t_2000_center, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 235.0], target: [0.0, 2000.0, -4572.0, 0.0, 0.0, 270.0, 240.0]}
+      - {name: f2t_3048_center, weight: 2.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 240.0], target: [0.0, 3048.0, -4572.0, 0.0, 0.0, 270.0, 240.0]}
+      - {name: f2t_3048_right, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 87.2, 240.0], target: [150.0, 3048.0, -4572.0, 0.0, 0.0, 267.2, 245.0]}
+      - {name: f2t_3048_left, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 92.8, 240.0], target: [-150.0, 3048.0, -4572.0, 0.0, 0.0, 272.8, 245.0]}
+      - {name: f2t_4500_center, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 245.0], target: [0.0, 4500.0, -4572.0, 0.0, 0.0, 270.0, 245.0]}
+      - {name: f2t_6000_center, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 250.0], target: [0.0, 6000.0, -4572.0, 0.0, 0.0, 270.0, 250.0]}
+
+notes:
+  - "F2-transfer replaces the cooperative target with the armed base BT."
