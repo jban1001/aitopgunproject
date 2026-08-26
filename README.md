@@ -1,10 +1,50 @@
-# AI Top Gun RL Study Project
+# AI Top Gun Specialist RL Archive
 
 AI 전투기 1:1 근접전을 대상으로 SAC 정책, 단계별 커리큘럼, 전문가 selector를 연구한 코드 모음입니다.
 
 이 저장소는 대회 배포본 전체가 아니라 **학습과 복기에 필요한 팀 작성 코드와 대표 산출물만 선별한 보존본**입니다. Codex와 Claude가 함께 진행한 커리큘럼 설계, 최종 selector, ABCDEF 대표 번들, 최종 제출 스냅샷, 통과 단계의 핵심 로그를 포함합니다. 반복 체크포인트, Ray 세션, 전체 Viewer 로그, 중복 Release 폴더와 대회 기본 런타임은 제외했습니다.
 
 `submission_snapshot/`은 팀 작성 부분과 실제 사용 번들을 보존한 것이며, 완전한 대회 SDK 배포본은 아닙니다. 실행에는 주최 측 `dogfight` 런타임과 시뮬레이터가 별도로 필요합니다.
+
+## 빠른 탐색
+
+| 목적 | 먼저 볼 곳 |
+|---|---|
+| 전체 설계와 최종 상태 파악 | 이 README와 [`docs/DESIGN_NOTES.md`](docs/DESIGN_NOTES.md) |
+| 모델별 출처와 승급 여부 확인 | [`docs/ARTIFACT_INDEX.md`](docs/ARTIFACT_INDEX.md) |
+| 시나리오가 단계별로 어떻게 변했는지 비교 | [`experiments/`](experiments/) |
+| 승급 gate와 continuation 흐름 이해 | [`scripts/`](scripts/) |
+| 실제 selector 우선순위와 전환 조건 확인 | [`submission_snapshot/student/specialist_selector.py`](submission_snapshot/student/specialist_selector.py) |
+| 최종 제출 배선 확인 | [`submission_snapshot/student/my_submission.py`](submission_snapshot/student/my_submission.py) |
+| Claude/Codex의 시행착오와 판단 근거 복기 | [`docs/archive/`](docs/archive/) |
+
+## 보존 범위와 재현 수준
+
+| 항목 | 포함 여부 | 재현 수준 |
+|---|---:|---|
+| 팀 작성 학습·scorer·selector 코드 | 포함 | 코드와 설정을 그대로 검토 가능 |
+| A-F 대표 정책 가중치 | 포함 | inference 및 비교 평가 가능 |
+| 승급 단계의 핵심 로그와 요약 | 포함 | peak 선택과 gate 통과 근거 확인 가능 |
+| optimizer·replay buffer·전체 native checkpoint | 제외 | 모든 학습을 중간 상태부터 완전히 재개할 수는 없음 |
+| 주최 측 SDK·Viewer·BattleServer | 제외 | 실제 실행에는 공식 배포 환경이 필요 |
+| 모든 실패 실험과 중복 Release 폴더 | 제외 | 설계상 의미 있는 이력만 문서와 소형 로그로 보존 |
+
+즉, 이 저장소의 목표는 대회 환경 전체를 복제하는 것이 아니라 **팀이 만든 의사결정과 대표 결과를 작고 검토 가능한 형태로 남기는 것**입니다. `docs/archive/`와 `scripts/legacy/`의 절대 경로는 당시 환경을 보여 주는 역사 자료이며, 새 환경에서 그대로 실행하는 진입점이 아닙니다.
+
+## 10분 둘러보기
+
+1. `docs/ARTIFACT_INDEX.md`에서 A-F 역할과 정식 승급 여부를 확인합니다.
+2. `experiments/team01_F2_guard.yaml`과 `experiments/team01_F3_transfer.yaml`을 비교해 incoming-warning 수업이 어떻게 계승됐는지 봅니다.
+3. 시뮬레이터 없이 보존 로그를 scorer에 넣어 승급 판정을 다시 읽습니다.
+
+```powershell
+python .\scripts\f_transfer_score.py `
+  .\evidence\F3_transfer\training_log.csv `
+  --threshold 0.82 --min-iteration 100
+```
+
+4. `submission_snapshot/student/specialist_selector.py`에서 안전 우선순위와 confirmation 조건을 확인합니다.
+5. `submission_snapshot/student/my_submission.py`에서 최종적으로 활성화된 전문가와 champion BT fallback을 확인합니다.
 
 ## 핵심 아이디어
 
@@ -194,14 +234,31 @@ actor, twin critic, target network, replay buffer, entropy temperature, off-poli
 
 ## 현재 스냅샷
 
-- A: A5 gun 대표 bundle 50 보존
-- B: B7 정식 승급, 대표 bundle 140 보존
-- C: C5b 정식 승급, 대표 bundle 80 보존
-- D: D4 defense 대표 bundle 90 보존
-- E: E7 position 대표 bundle 60 보존
-- F: F3 정식 승급 bundle 130과 실제 제출 후보 bundle 80 보존
-- F4: 사용자 요청으로 iter 88에서 정상 저장 후 종료, 정식 승급은 아님
-- 최종 제출: D4/C5b/F3-c80 안전 오버레이 + champion BT
-- 제외: 전체 대회 SDK, 반복 체크포인트, Ray 임시 파일, 중복 Release, 원시 Viewer 영상/대용량 로그
+| 계열 | 대표 산출물 | 상태 | 최종 기본 selector |
+|---|---|---|---:|
+| A | A5 gun bundle 50 | 연구용 대표 정점 | 비활성 |
+| B | B7 bridge bundle 140 | 정식 승급 | 비활성 |
+| C | C5b crossing-defense bundle 80 | 정식 승급 | 활성 |
+| D | D4 defense bundle 90 | 대표 정점 | 활성 |
+| E | E7 position bundle 60 | 연구용 대표 정점 | 비활성 |
+| F | F3 bundle 130 | corrected F3 정식 승급 | 비교 보존 |
+| F | F3 bundle 80 | Viewer에서 선택한 제출 후보 | 활성 |
+| F4 | training log, iter 88 | 정상 저장 후 사용자 요청으로 종료, 미승급 | 비활성 |
+
+최종 제출 구성은 **D4/C5b/F3-c80 안전 오버레이 + champion BT fallback**입니다. 전체 대회 SDK, 반복 체크포인트, Ray 임시 파일, 중복 Release, 원시 Viewer 영상과 대용량 통신 로그는 제외했습니다.
+
+## 제출 스냅샷 무결성
+
+`submission_snapshot/MANIFEST_SHA256.txt`에는 팀 코드, DLL/XML, 대표 번들의 SHA-256이 기록되어 있습니다. 파일을 복사하거나 공식 SDK와 조립한 뒤 다음처럼 변조 또는 누락 여부를 확인할 수 있습니다.
+
+```powershell
+$root = Resolve-Path .\submission_snapshot
+Get-Content $root\MANIFEST_SHA256.txt | ForEach-Object {
+  $hash, $relative = $_ -split '  ', 2
+  $path = Join-Path $root $relative
+  $actual = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLower()
+  if ($actual -ne $hash) { Write-Error "hash mismatch: $relative" }
+}
+```
 
 파일별 출처와 보존 이유는 [docs/ARTIFACT_INDEX.md](docs/ARTIFACT_INDEX.md), 세부 단계 표와 평가 체크리스트는 [docs/DESIGN_NOTES.md](docs/DESIGN_NOTES.md)를 참고하세요.
