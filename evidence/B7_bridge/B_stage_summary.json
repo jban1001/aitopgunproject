@@ -1,0 +1,29 @@
+﻿{
+    "best":  {
+                 "dwell":  1.0,
+                 "final_handoff":  1.0,
+                 "iter":  147.0,
+                 "saturation_clear":  0.36581250000000004,
+                 "score":  0.9661676250000001,
+                 "stalemate_clear":  0.9575400000000001,
+                 "success":  1.0,
+                 "survival":  1.0
+             },
+    "current":  {
+                    "dwell":  1.0,
+                    "final_handoff":  1.0,
+                    "iter":  175.0,
+                    "saturation_clear":  0.32846875000000003,
+                    "score":  0.9636807708333335,
+                    "stalemate_clear":  0.9451466666666668,
+                    "success":  1.0,
+                    "survival":  1.0
+                },
+    "current_iter":  175,
+    "plateau_age":  28,
+    "quality_ok":  true,
+    "ready":  true,
+    "safety_ok":  true,
+    "threshold":  0.68,
+    "valid_episodes":  44
+}

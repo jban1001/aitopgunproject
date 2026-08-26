@@ -42,7 +42,7 @@ env_config:
       - {name: b1_62_88_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 225.0], target: [-1235.4, 657.2, -4572.0, 0.0, 0.0, 244.0, 230.0]}
 
 runtime:
-  init_bundle: C:/Users/JUN/Desktop/airop/Release_260722_plz/artifacts/models/team01/E7_tail/bundle_000060
+  init_bundle: submission_snapshot/artifacts/models/team01/E7_tail/bundle_000060
   restore_checkpoint: null
   iterations: 300
   num_env_runners: 2

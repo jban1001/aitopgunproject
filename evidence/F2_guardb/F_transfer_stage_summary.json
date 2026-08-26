@@ -1,0 +1,37 @@
+﻿{
+    "best":  {
+                 "cross_diagnostic":  0.0,
+                 "incoming_clear":  1.0,
+                 "iter":  94.0,
+                 "offense":  0.7509826567248425,
+                 "old_handoff_diagnostic":  0.0,
+                 "saturation_clear":  0.28838345724907066,
+                 "score":  0.9564242976934537,
+                 "stalemate_clear":  0.99785,
+                 "survival":  1.0,
+                 "threat_clear":  0.9996499999999999,
+                 "transfer":  1.0,
+                 "transfer_dwell":  1.0
+             },
+    "current":  {
+                    "cross_diagnostic":  0.0,
+                    "incoming_clear":  0.9917554819342103,
+                    "iter":  124.0,
+                    "offense":  0.3814679221428158,
+                    "old_handoff_diagnostic":  0.0,
+                    "saturation_clear":  0.2532602557915058,
+                    "score":  0.9308048012244399,
+                    "stalemate_clear":  0.9977250000000002,
+                    "survival":  1.0,
+                    "threat_clear":  0.9994,
+                    "transfer":  1.0,
+                    "transfer_dwell":  1.0
+                },
+    "current_iter":  124,
+    "plateau_age":  30,
+    "quality_ok":  true,
+    "ready":  true,
+    "safety_ok":  true,
+    "threshold":  0.82,
+    "valid_episodes":  46
+}

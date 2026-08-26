@@ -35,6 +35,17 @@ student/submission.py
 *.pptx
 *.zip
 
+# Curated archival exceptions. These are intentionally small, selected artifacts;
+# do not broaden these rules to the generated artifacts/ or checkpoint trees.
+!evidence/**/*.csv
+!evidence/**/*.log
+!submission_snapshot/artifacts/
+!submission_snapshot/artifacts/models/
+!submission_snapshot/artifacts/models/**/
+!submission_snapshot/**/*.pkl.gz
+!submission_snapshot/**/*.dll
+!submission_snapshot/**/*.xml
+
 # Editors and OS
 .idea/
 .vscode/

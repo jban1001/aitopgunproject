@@ -27,7 +27,7 @@ env_config:
       - {name: c1_145_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [-573.6, -819.2, -4572.0, 0.0, 0.0, 47.0, 250.0]}
 
 runtime:
-  init_bundle: C:/Users/JUN/Desktop/airop/Release_260722_plz/artifacts/models/team01/D4_def/bundle_000090
+  init_bundle: submission_snapshot/artifacts/models/team01/D4_def/bundle_000090
   restore_checkpoint: null
   iterations: 300
   num_env_runners: 3

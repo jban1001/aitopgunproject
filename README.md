@@ -2,35 +2,47 @@
 
 AI 전투기 1:1 근접전을 대상으로 SAC 정책, 단계별 커리큘럼, 전문가 selector를 연구한 코드 모음입니다.
 
-이 저장소는 대회 배포본 전체가 아니라 **학습과 복기에 필요한 학생 작성 코드만 선별한 학습용 스냅샷**입니다. 모델 가중치, DLL/XML, 대용량 로그, 서버 연결 코드, 제출 패키지는 포함하지 않습니다. 실제 실행에는 별도의 대회 시뮬레이터와 `dogfight` 런타임이 필요합니다.
+이 저장소는 대회 배포본 전체가 아니라 **학습과 복기에 필요한 팀 작성 코드와 대표 산출물만 선별한 보존본**입니다. Codex와 Claude가 함께 진행한 커리큘럼 설계, 최종 selector, ABCDEF 대표 번들, 최종 제출 스냅샷, 통과 단계의 핵심 로그를 포함합니다. 반복 체크포인트, Ray 세션, 전체 Viewer 로그, 중복 Release 폴더와 대회 기본 런타임은 제외했습니다.
+
+`submission_snapshot/`은 팀 작성 부분과 실제 사용 번들을 보존한 것이며, 완전한 대회 SDK 배포본은 아닙니다. 실행에는 주최 측 `dogfight` 런타임과 시뮬레이터가 별도로 필요합니다.
 
 ## 핵심 아이디어
 
 하나의 정책에 모든 상황을 한꺼번에 가르치기보다, 실패 상태를 역할별로 나누고 쉬운 상태에서 어려운 상태로 이동합니다.
 
+- **A 계열, gun cone**: 이미 유리한 후방 위치에서 조준 원뿔과 실제 사격 기회를 만듭니다.
 - **B 계열, bridge/handoff**: 불리하지도 유리하지도 않은 교착 상태를 다음 전문가가 처리할 수 있는 상태로 운반합니다.
 - **C 계열, crossing defense**: 상대가 사격선을 만드는 교차 상황에서 노출을 끊고 생존합니다.
+- **D 계열, defense**: 상대가 뒤를 잡은 상태에서 생존하고 위협 기하를 해제합니다.
+- **E 계열, tail/position**: 후방 추적 우세를 만들고 사격 전문가가 받을 수 있는 위치로 이동합니다.
 - **F 계열, frontal transfer**: 정면 merge에서 상대 사격을 부정하고 속도 180 m/s 이상을 유지한 채 B/C가 검증된 영역으로 인계합니다.
 - **Selector**: 상대 유형을 추측하지 않고 거리, ATA, aspect, 고도처럼 직접 관측 가능한 기하만 사용합니다.
 
-공격, 방어, 위치, 조준 전문가 전체를 합친 제출 시스템은 공개하지 않습니다. 이 저장소의 `specialist_selector.py`는 전문가 조합과 히스테리시스를 공부하기 위한 핵심 로직입니다.
+실제 최종 연결 코드는 `submission_snapshot/student/`에 보존했습니다. 기본 제출 구성은 D4, C5b, corrected F3를 안전 오버레이로 사용하고 나머지는 champion BT에 맡깁니다. A5, B7, E7은 연구용 대표 번들로 보존했지만 최종 기본 selector에서는 비활성화했습니다.
 
 ## 저장소 구조
 
 ```text
 .
-├─ experiments/                 # B1-B7, C1-C5, F1-F5 커리큘럼 YAML
+├─ experiments/                 # A-F 커리큘럼 YAML과 F guard 수정안
 ├─ scripts/
 │  ├─ orchestrate_b_lane.ps1   # B 사다리 자동 실행과 승격
 │  ├─ orchestrate_c_lane.ps1   # C 사다리 자동 실행과 승격
 │  ├─ orchestrate_f_transfer_lane.ps1
 │  ├─ b_curriculum_score.py    # 역할별 통과 점수 계산
 │  ├─ c_curriculum_score.py
-│  └─ f_transfer_score.py
+│  ├─ f_transfer_score.py
+│  ├─ orchestrate_f2_guard_then_resume.ps1
+│  └─ legacy/                   # A/D/E 초기 사다리 원본 기록
 ├─ student/
 │  ├─ team01_phase_observation.py  # 35차원 Markov 관측
 │  └─ specialist_selector.py       # 기하 기반 전문가 선택
-├─ docs/DESIGN_NOTES.md
+├─ submission_snapshot/         # 최종 팀 코드, BT 파일, 실제/대표 번들
+├─ evidence/                    # 최종 단계 training_log와 승급 요약
+├─ docs/
+│  ├─ DESIGN_NOTES.md
+│  ├─ ARTIFACT_INDEX.md
+│  └─ archive/                  # Claude/Codex 협업 설계와 시행착오 기록
 └─ train_rllib.py              # SAC 학습, 복원, 번들/체크포인트 저장
 ```
 
@@ -182,9 +194,14 @@ actor, twin critic, target network, replay buffer, entropy temperature, off-poli
 
 ## 현재 스냅샷
 
-- B 사다리: B7까지 설계
-- C 사다리: C5까지 설계
-- F 사다리: F1-F5와 동일 단계 continuation 설계
-- 공개 제외: 모델 가중치, 실제 대회 DLL/XML, 제출 통신 코드, 비공개 전투 로그
+- A: A5 gun 대표 bundle 50 보존
+- B: B7 정식 승급, 대표 bundle 140 보존
+- C: C5b 정식 승급, 대표 bundle 80 보존
+- D: D4 defense 대표 bundle 90 보존
+- E: E7 position 대표 bundle 60 보존
+- F: F3 정식 승급 bundle 130과 실제 제출 후보 bundle 80 보존
+- F4: 사용자 요청으로 iter 88에서 정상 저장 후 종료, 정식 승급은 아님
+- 최종 제출: D4/C5b/F3-c80 안전 오버레이 + champion BT
+- 제외: 전체 대회 SDK, 반복 체크포인트, Ray 임시 파일, 중복 Release, 원시 Viewer 영상/대용량 로그
 
-세부 단계 표와 평가 체크리스트는 [docs/DESIGN_NOTES.md](docs/DESIGN_NOTES.md)를 참고하세요.
+파일별 출처와 보존 이유는 [docs/ARTIFACT_INDEX.md](docs/ARTIFACT_INDEX.md), 세부 단계 표와 평가 체크리스트는 [docs/DESIGN_NOTES.md](docs/DESIGN_NOTES.md)를 참고하세요.

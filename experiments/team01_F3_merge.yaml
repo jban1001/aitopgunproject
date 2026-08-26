@@ -1,0 +1,20 @@
+extends: team01_F2_merge.yaml
+
+name: team01_F3_merge
+output: {name: team01, tag: F3_merge}
+
+env_config:
+  initial_scenario:
+    shared_randomization: {enabled: true, n_m: 80.0, e_m: 80.0, d_m: 90.0, speed_mps: 10.0}
+    ownship_randomization: {enabled: true, radius: 60.0, r_roll: 8.0, r_pitch: 5.0, r_heading: 8.0, speed_mps: 10.0}
+    target_randomization: {enabled: true, radius: 70.0, r_roll: 8.0, r_pitch: 5.0, r_heading: 9.0, speed_mps: 10.0}
+    scenarios:
+      - {name: f3_fast_low_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4372.0, 0.0, 2.0, 82.0, 260.0], target: [400.0, 3048.0, -4672.0, 0.0, -2.0, 262.0, 225.0]}
+      - {name: f3_fast_low_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4372.0, 0.0, 2.0, 98.0, 260.0], target: [-400.0, 3048.0, -4672.0, 0.0, -2.0, 278.0, 225.0]}
+      - {name: f3_slow_high_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4772.0, 0.0, -2.0, 84.0, 215.0], target: [350.0, 3048.0, -4472.0, 0.0, 2.0, 264.0, 260.0]}
+      - {name: f3_slow_high_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4772.0, 0.0, -2.0, 96.0, 215.0], target: [-350.0, 3048.0, -4472.0, 0.0, 2.0, 276.0, 260.0]}
+      - {name: f3_4500_offset_r, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 8.0, 1.0, 85.0, 235.0], target: [500.0, 4500.0, -4772.0, -8.0, -1.0, 265.0, 250.0]}
+      - {name: f3_4500_offset_l, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, -8.0, 1.0, 95.0, 235.0], target: [-500.0, 4500.0, -4772.0, 8.0, -1.0, 275.0, 250.0]}
+
+notes:
+  - "F3 adds energy, altitude, offset, and attitude mismatch while retaining the same safety/offense gate."

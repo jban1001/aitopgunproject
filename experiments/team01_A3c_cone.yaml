@@ -1,0 +1,19 @@
+extends: team01_N1_long_bfm_400i.yaml
+name: team01_A3c_cone
+output: {name: team01, tag: A3c_cone}
+env_config:
+  selfplay_bt_prob: 0.0
+  # 중간 계단 A3c: 대회 기준의 1.5 배. 반각 1.5/3/4.5 도.
+  # A3(3도) -> A4(1도) 가 3배 도약이라 A3 가 iter34 에서 4.25 로 무너졌다가
+  # iter111 에서 19.70 으로 겨우 회복했다. 계단을 1.5배씩으로 줄인다.
+  wez_phases:
+    - {start_s: 0.0,   angle_deg: 3.0, min_range_m: 152.4, max_range_m: 914.4,  scale: 1.0}
+    - {start_s: 100.0, angle_deg: 6.0, min_range_m: 152.4, max_range_m: 1066.8, scale: 0.3}
+    - {start_s: 150.0, angle_deg: 9.0, min_range_m: 152.4, max_range_m: 1219.2, scale: 0.1}
+runtime:
+  init_bundle: C:/Users/JUN/Desktop/airop/Release_260722_plz/artifacts/models/team01/A3_cone/bundle_000110
+  restore_checkpoint: null
+  iterations: 200
+notes:
+  - "파라미터 등간격은 난이도 등간격이 아니다(champion 약화 4600->4200 절벽에서 배운 것)."
+  - "판정 기준: champion BT 단독의 1도 원뿔 체류 0.364초(방어형 상대)를 넘어야 쓸 가치가 있다."

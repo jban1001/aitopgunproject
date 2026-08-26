@@ -1,0 +1,26 @@
+extends: team01_F4_merge.yaml
+
+name: team01_F5_merge
+output: {name: team01, tag: F5_merge}
+
+env_config:
+  initial_scenario:
+    shared_randomization: {enabled: true, n_m: 30.0, e_m: 30.0, d_m: 40.0, speed_mps: 5.0}
+    ownship_randomization: {enabled: true, radius: 25.0, r_roll: 4.0, r_pitch: 3.0, r_heading: 4.0, speed_mps: 5.0}
+    target_randomization: {enabled: true, radius: 30.0, r_roll: 4.0, r_pitch: 3.0, r_heading: 4.0, speed_mps: 5.0}
+    scenarios:
+      # States measured in the 2026-08-23 Viewer head-on loss.  Each has a
+      # mirrored counterpart so the learner cannot memorize one break side.
+      - {name: f5_vm_1606_r, weight: 2.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -6131.93, -134.92, -19.35, -44.53, 136.89], target: [718.83, -1075.14, -5179.04, 25.58, 35.51, 123.57, 189.85]}
+      - {name: f5_vm_1606_l, weight: 2.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -6131.93, 134.92, -19.35, 224.53, 136.89], target: [-718.83, -1075.14, -5179.04, -25.58, 35.51, 56.43, 189.85]}
+      - {name: f5_vm_1296_r, weight: 2.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -6097.23, -129.55, -28.25, -52.39, 142.91], target: [531.72, -854.65, -5280.72, 10.14, 38.33, 122.09, 190.59]}
+      - {name: f5_vm_1296_l, weight: 2.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -6097.23, 129.55, -28.25, 232.39, 142.91], target: [-531.72, -854.65, -5280.72, -10.14, 38.33, 57.91, 190.59]}
+      - {name: f5_vm_902_r, weight: 2.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -6019.92, -150.80, -42.44, -60.20, 151.53], target: [325.07, -584.47, -5413.85, -16.44, 42.37, 119.18, 190.73]}
+      - {name: f5_vm_902_l, weight: 2.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -6019.92, 150.80, -42.44, 240.20, 151.53], target: [-325.07, -584.47, -5413.85, 16.44, 42.37, 60.82, 190.73]}
+      - {name: f5_r3048_anchor, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 250.0], target: [0.0, 3048.0, -4572.0, 0.0, 0.0, 270.0, 250.0]}
+      - {name: f5_r4500_anchor, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 250.0], target: [0.0, 4500.0, -4572.0, 0.0, 0.0, 270.0, 250.0]}
+      - {name: f5_r6000_anchor, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 250.0], target: [0.0, 6000.0, -4572.0, 0.0, 0.0, 270.0, 250.0]}
+
+notes:
+  - "F5 is the measured Viewer transfer stage plus Round 4 anchors."
+  - "Passing F5 qualifies a bundle for selector evaluation, not automatic Release_submit deployment."

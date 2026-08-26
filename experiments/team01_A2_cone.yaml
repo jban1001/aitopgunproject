@@ -1,0 +1,20 @@
+extends: team01_N1_long_bfm_400i.yaml
+name: team01_A2_cone
+output: {name: team01, tag: A2_cone}
+env_config:
+  selfplay_bt_prob: 0.0
+  # 원뿔 폭 사다리 A2: 대회 기준의 6 배. 반각 6/12/18도.
+  wez_phases:
+    - {start_s: 0.0,   angle_deg: 12.0, min_range_m: 152.4, max_range_m: 914.4,  scale: 1.0}
+    - {start_s: 100.0, angle_deg: 24.0, min_range_m: 152.4, max_range_m: 1066.8, scale: 0.3}
+    - {start_s: 150.0, angle_deg: 36.0, min_range_m: 152.4, max_range_m: 1219.2, scale: 0.1}
+runtime:
+  init_bundle: C:/Users/JUN/Desktop/airop/Release_260722_plz/artifacts/models/team01/A1_cone/bundle_000050
+  restore_checkpoint: null
+  iterations: 50
+  lightweight_bundle_frequency: 10
+  native_checkpoint_frequency: 25
+notes:
+  - "원뿔 폭 커리큘럼 A2 — 대회 기준 x6. 지금까지 커리큘럼은 전부 스폰 기하로 줬고 보상 원뿔 폭으로 준 적이 없다."
+  - "뷰어 측정(하이브리드 199.6초 완주): WEZ 거리대 33.8초 체류인데 1도 이내 0.00초. 생존/에너지/접근은 해결됐고 조준만 남았다."
+  - "최종 A4 는 대회 원뿔 그대로(2/4/6). 여기까지 조준이 살아남아야 의미가 있다."

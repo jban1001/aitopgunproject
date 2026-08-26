@@ -30,7 +30,7 @@ env_config:
     bridge_stalemate_penalty: 0.15
 
 runtime:
-  init_bundle: C:/Users/JUN/Desktop/airop/Release_260722_plz/artifacts/models/team01/B7_bridge/bundle_000140
+  init_bundle: submission_snapshot/artifacts/models/team01/B7_bridge/bundle_000140
   restore_checkpoint: null
 
 notes:

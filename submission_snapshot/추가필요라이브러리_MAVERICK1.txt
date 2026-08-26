@@ -1,0 +1,24 @@
+MAVERICK1 추가 필요 라이브러리
+==============================
+
+권장 실행 환경
+- Windows 64-bit
+- Python 3.11
+
+필요 Python 패키지
+- cloudpickle==3.1.1
+- filelock==3.18.0
+- gymnasium>=1.0,<2.0
+- numpy==2.2.6
+- pymap3d==3.1.0
+- ray[rllib]==2.54.0
+- torch>=2.3,<3.0
+- PyYAML>=6.0,<7.0
+
+일괄 설치 명령
+
+    python -m pip install -r requirements.txt
+
+별도 플러그인은 필요하지 않습니다.
+행동 트리 실행에 필요한 AIP_Team01_v12_stable.dll 및 XML 파일은 제출 ZIP에 포함되어 있습니다.
+기존 제공 환경에 위 패키지가 이미 설치되어 있다면 추가 설치는 필요하지 않습니다.

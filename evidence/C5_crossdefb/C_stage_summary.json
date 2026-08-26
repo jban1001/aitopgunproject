@@ -1,0 +1,27 @@
+﻿{
+    "best":  {
+                 "damage":  0.5240265610484791,
+                 "exposure_clear":  0.99265,
+                 "handoff":  0.8157888025224794,
+                 "iter":  86.0,
+                 "score":  0.93788908855692,
+                 "survival":  1.0,
+                 "threat_clear":  1.0
+             },
+    "current":  {
+                    "damage":  0.5365734958314761,
+                    "exposure_clear":  0.9872999999999997,
+                    "handoff":  0.710010403778069,
+                    "iter":  114.0,
+                    "score":  0.9020898155895856,
+                    "survival":  1.0,
+                    "threat_clear":  0.9594258858354229
+                },
+    "current_iter":  114,
+    "plateau_age":  28,
+    "quality_ok":  true,
+    "ready":  true,
+    "safety_ok":  true,
+    "threshold":  0.72,
+    "valid_episodes":  56
+}

@@ -1,0 +1,29 @@
+extends: team01_N1_long_bfm_400i.yaml
+name: team01_A5_gun
+output: {name: team01, tag: A5_gun}
+env_config:
+  selfplay_bt_prob: 0.0
+  # A5 = 조준 전문가를 **자기 상황**에서 학습. 사거리 안 400~800m + 대충 정렬.
+  # A4b 는 중립 스폰에서 배워서 이 상황을 겪은 적이 없다.
+  # 사격창 격자: champion BT +0.9446(킬27, 1도체류 2.267) vs A4b +0.0696(킬3, 0.122)
+  reward:
+    angle_advantage_scale: 0.5          # 각 우위 자체보다
+    angle_advantage_progress_scale: 0.2
+    alt_advantage_scale: 0.0            # 고도 우위는 이 상황에서 목표가 아니다
+  initial_scenario:
+    mode: scenario_pool
+    shared_randomization: {enabled: true, n_m: 60.0, e_m: 60.0, d_m: 50.0, speed_mps: 8.0}
+    ownship_randomization: {enabled: true, radius: 50.0, r_roll: 6.0, r_pitch: 3.0, r_heading: 8.0, speed_mps: 8.0}
+    target_randomization: {enabled: true, radius: 60.0, r_roll: 6.0, r_pitch: 3.0, r_heading: 10.0, speed_mps: 8.0}
+    scenarios:
+      - {name: gun_400, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 250.0], target: [0.0, 400.0, -4572.0, 0.0, 0.0, 90.0, 215.0]}
+      - {name: gun_600, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 250.0], target: [0.0, 600.0, -4572.0, 0.0, 0.0, 90.0, 215.0]}
+      - {name: gun_800, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 250.0], target: [0.0, 800.0, -4572.0, 0.0, 0.0, 90.0, 215.0]}
+      - {name: gun_400_off, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 250.0], target: [80.0, 400.0, -4572.0, 0.0, 0.0, 90.0, 215.0]}
+      - {name: gun_600_off, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 250.0], target: [120.0, 600.0, -4572.0, 0.0, 0.0, 90.0, 215.0]}
+      - {name: gun_800_hi, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 250.0], target: [0.0, 800.0, -4772.0, 0.0, 0.0, 90.0, 215.0]}
+runtime:
+  iterations: 300
+notes:
+  - "원뿔은 대회 기본값(2/4/6) 그대로. 조준 정밀도가 목표라 넓히지 않는다."
+  - "판정: 사격창 격자에서 champion BT 의 +0.9446 / 1도체류 2.267 을 넘어야 의미."

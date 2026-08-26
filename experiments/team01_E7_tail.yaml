@@ -1,0 +1,41 @@
+extends: team01_N1_long_bfm_400i.yaml
+name: team01_E7_tail
+output: {name: team01, tag: E7_tail}
+env_config:
+  selfplay_bt_prob: 0.0
+  # 위치 전문가 E6 — 정면 머지 (habfm) — 대회 실제 개시.
+  # E1~E4 는 astern(이미 뒤)에서 시작해 **유지**만 배운다. 여기서 처음으로
+  # 중립에서 **뒤를 잡아가는** 것을 배운다. 대회 개시 기하가 바로 이것이다.
+  reward:
+    # E6 역할 이탈 교정 (2026-08-22)
+    # E6 은 이 기하에서 사망 0/36 을 얻었으나 1도 원뿔 체류가 0.031초, 킬 0 이었다.
+    # "안 죽지만 겨누지도 않는" 회피 정책이 됐다. E 는 위치 선점 전문가여야 한다.
+    #
+    # 원인 후보: danger_exposure_penalty 1.5 (상대가 우리를 20도 안으로 겨누는데
+    # 우리는 60도 밖일 때 발동). 정면 머지에서 유능한 BT 상대로 그 상태가 자주 생기고,
+    # 교전을 피하면 페널티도 피해진다.
+    # 주석의 "0.3 은 자멸, 0.9 는 무효과" 는 astern/근접 기준이었다 -- 중립은 미측정.
+    danger_exposure_penalty: 0.6
+    angle_advantage_scale: 1.2
+    angle_advantage_range_m: 3000.0
+    angle_advantage_progress_scale: 0.7   # 중립 -> 공세 **전환** 이 목표이므로 progress 를 더 준다
+    alt_advantage_scale: 0.15
+    alt_advantage_range_m: 3000.0
+  initial_scenario:
+    mode: scenario_pool
+    shared_randomization: {enabled: true, n_m: 120.0, e_m: 120.0, d_m: 100.0, speed_mps: 12.0}
+    ownship_randomization: {enabled: true, radius: 80.0, r_roll: 10.0, r_pitch: 5.0, r_heading: 12.0, speed_mps: 12.0}
+    target_randomization: {enabled: true, radius: 100.0, r_roll: 10.0, r_pitch: 5.0, r_heading: 15.0, speed_mps: 12.0}
+    scenarios:
+      - {name: habfm_498, weight: 2.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 200.0], target: [-498.0, -8.0, -4572.0, 0.0, 0.0, 270.0, 200.0]}
+      - {name: habfm_610, weight: 2.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 200.0], target: [-610.0, -10.0, -4572.0, 0.0, 0.0, 270.0, 200.0]}
+      - {name: habfm_762, weight: 2.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 200.0], target: [-761.0, -13.0, -4572.0, 0.0, 0.0, 270.0, 200.0]}
+      - {name: habfm_914, weight: 2.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 200.0], target: [-914.0, -15.0, -4572.0, 0.0, 0.0, 270.0, 200.0]}
+      - {name: obfm_blue, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 0.0, 200.0], target: [554.0, 46.0, -4572.0, 0.0, 0.0, 0.0, 200.0]}
+      - {name: obfm_red,  weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 0.0, 200.0], target: [-554.0, -46.0, -4572.0, 0.0, 0.0, 0.0, 200.0]}
+runtime:
+  iterations: 300
+notes:
+  - "원뿔은 대회 기본값(2/4/6) 그대로. 목표는 조준이 아니라 위치 선점이다."
+  - "판정은 순딜이 아니라 **1도 원뿔 체류와 킬 수**로 할 것. 순딜만 보면 회피 정책이 좋아 보인다."
+  - "판정: champion BT 단독 격자(방어형 -0.0026 / 1도체류 0.364초)를 넘어야 의미."

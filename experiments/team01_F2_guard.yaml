@@ -1,0 +1,24 @@
+extends: team01_F2_transfer.yaml
+
+name: team01_F2_guard
+output: {name: team01, tag: F2_guard}
+
+env_config:
+  reward:
+    # F2/F2b was usually first hit at 4.1-5.0 s, 858-895 m, after the
+    # opponent ATA had already collapsed below one degree.  Keep the hard
+    # three-degree threat metric unchanged, but provide an earlier smooth
+    # learning signal so the policy can move before the firing solution.
+    incoming_warning_target_ata_deg: 12.0
+    incoming_warning_min_range_m: 300.0
+    incoming_warning_max_range_m: 1800.0
+    incoming_warning_pre_cross_only: true
+    incoming_warning_penalty: 0.35
+
+runtime:
+  init_bundle: C:/Users/JUN/Desktop/airop/Release_260722_plz/artifacts/models/team01/F2_transferb/bundle_000090
+  restore_checkpoint: null
+
+notes:
+  - "F2-guard changes only the timing of the frontal-threat lesson."
+  - "The smooth 12-to-3-degree warning avoids increasing the already-large damage penalty."

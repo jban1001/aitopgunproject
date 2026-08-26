@@ -1,0 +1,31 @@
+MAVERICK1 실행 방법
+====================
+
+1. 제출 ZIP 파일을 원하는 폴더에 압축 해제합니다.
+2. PowerShell 또는 명령 프롬프트에서 압축 해제한 최상위 폴더로 이동합니다.
+3. 아래 명령을 실행합니다.
+
+    python student\submission.py
+
+Conda 환경을 사용하는 경우:
+
+    conda activate aip
+    python student\submission.py
+
+로컬 DogFightViewer 서버는 자동으로 탐색하고 연결합니다.
+원격 서버 주소를 명시해야 하는 경우 PowerShell에서 아래처럼 실행합니다.
+
+    $env:TEAM01_SERVER_IP="서버_IP"
+    $env:TEAM01_SERVER_PORT="서버_포트"
+    python student\submission.py
+
+Windows 명령 프롬프트에서는 아래 형식을 사용합니다.
+
+    set TEAM01_SERVER_IP=서버_IP
+    set TEAM01_SERVER_PORT=서버_포트
+    python student\submission.py
+
+주의:
+- 실행 위치는 반드시 압축 해제한 최상위 폴더여야 합니다.
+- 폴더 내부 DLL, XML, artifacts 경로와 파일명은 변경하지 마십시오.
+- RUN_SUBMISSION.bat으로도 같은 프로그램을 실행할 수 있습니다.

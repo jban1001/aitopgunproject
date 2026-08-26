@@ -4,6 +4,15 @@ name: team01_F3_transfer
 output: {name: team01, tag: F3_transfer}
 
 env_config:
+  reward:
+    # Preserve the pre-fire lesson that qualified F2_guardb. F3-F5 keep the
+    # original hard threat/damage metrics; this only retains the smooth signal
+    # that teaches the policy to move before the opponent has a firing solution.
+    incoming_warning_target_ata_deg: 12.0
+    incoming_warning_min_range_m: 300.0
+    incoming_warning_max_range_m: 1800.0
+    incoming_warning_pre_cross_only: true
+    incoming_warning_penalty: 0.35
   initial_scenario:
     shared_randomization: {enabled: true, n_m: 80.0, e_m: 80.0, d_m: 90.0, speed_mps: 10.0}
     ownship_randomization: {enabled: true, radius: 60.0, r_roll: 8.0, r_pitch: 5.0, r_heading: 8.0, speed_mps: 10.0}

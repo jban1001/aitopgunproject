@@ -1,0 +1,72 @@
+extends: team01_N1_long_bfm_400i.yaml
+
+name: team01_F1_merge
+output: {name: team01, tag: F1_merge}
+
+env_config:
+  selfplay_bt_prob: 0.0
+  reward:
+    # F owns mutual nose-on geometry.  It must deny the opponent's pre-pass
+    # firing line, cross safely, then hand the fight to B/C/E/A instead of
+    # learning indefinite evasion.
+    merge_enabled: true
+    merge_cross_rate_m: 5.0
+    merge_cross_range_max_m: 1800.0
+    merge_safe_cross_min_range_m: 350.0
+    merge_cross_reward: 6.0
+    merge_unsafe_cross_penalty: 5.0
+    merge_handoff_window_steps: 180
+    merge_handoff_min_range_m: 300.0
+    merge_handoff_max_range_m: 2500.0
+    merge_handoff_ata_deg: 60.0
+    merge_handoff_scale: 0.35
+    merge_handoff_bonus: 16.0
+    merge_turnin_ata_deg: 120.0
+    merge_turnin_scale: 0.45
+    merge_stalemate_grace_steps: 35
+    merge_stalemate_min_range_m: 800.0
+    merge_stalemate_max_range_m: 2800.0
+    merge_stalemate_min_ata_deg: 70.0
+    merge_stalemate_max_ata_deg: 145.0
+    merge_stalemate_closure_m: 8.0
+    merge_stalemate_penalty: 0.25
+    incoming_threat_target_ata_deg: 3.0
+    incoming_threat_min_range_m: 300.0
+    incoming_threat_max_range_m: 1400.0
+    incoming_threat_pre_cross_only: true
+    incoming_threat_penalty: 0.8
+    incoming_damage_scale: 240.0
+    damage_scale: 180.0
+    first_blood_bonus: 12.0
+    angle_advantage_scale: 0.8
+    angle_advantage_progress_scale: 0.6
+    safety_altitude_m: 1200.0
+    low_altitude_penalty: 2.0
+    dive_pitch_deg: -18.0
+    dive_penalty_scale: 0.8
+  initial_scenario:
+    mode: scenario_pool
+    shared_randomization: {enabled: true, n_m: 35.0, e_m: 35.0, d_m: 35.0, speed_mps: 5.0}
+    ownship_randomization: {enabled: true, radius: 25.0, r_roll: 3.0, r_pitch: 2.0, r_heading: 3.0, speed_mps: 5.0}
+    target_randomization: {enabled: true, radius: 30.0, r_roll: 3.0, r_pitch: 2.0, r_heading: 3.0, speed_mps: 5.0}
+    scenarios:
+      - {name: f1_3048_center, weight: 2.0, target_mode: autopilot, target_autopilot: {heading_cmd: 270.0, altitude_cmd: 4572.0, speed_cmd: 240.0}, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 240.0], target: [0.0, 3048.0, -4572.0, 0.0, 0.0, 270.0, 240.0]}
+      - {name: f1_3048_right, weight: 1.0, target_mode: autopilot, target_autopilot: {heading_cmd: 267.2, altitude_cmd: 4572.0, speed_cmd: 240.0}, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 87.2, 240.0], target: [150.0, 3048.0, -4572.0, 0.0, 0.0, 267.2, 240.0]}
+      - {name: f1_3048_left, weight: 1.0, target_mode: autopilot, target_autopilot: {heading_cmd: 272.8, altitude_cmd: 4572.0, speed_cmd: 240.0}, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 92.8, 240.0], target: [-150.0, 3048.0, -4572.0, 0.0, 0.0, 272.8, 240.0]}
+      - {name: f1_4500_center, weight: 1.0, target_mode: autopilot, target_autopilot: {heading_cmd: 270.0, altitude_cmd: 4572.0, speed_cmd: 240.0}, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 240.0], target: [0.0, 4500.0, -4572.0, 0.0, 0.0, 270.0, 240.0]}
+
+runtime:
+  init_bundle: C:/Users/JUN/Desktop/airop/Release_260722_plz/artifacts/models/team01/B6_bridge/bundle_000160
+  restore_checkpoint: null
+  iterations: 300
+  num_env_runners: 2
+  lightweight_bundle_frequency: 10
+  native_checkpoint_frequency: 25
+  save_native_checkpoint: true
+
+policy_probe: {enabled: true, interval: 25, steps: 4, print: false}
+engagement_log: {enabled: true, interval: 25, steps: 600, episodes: 6, print: false}
+
+notes:
+  - "F1 is a controlled straight-flying merge lesson, not a combat promotion candidate."
+  - "The gate requires safe crossing, post-pass handoff, offense, and independently measured incoming safety."

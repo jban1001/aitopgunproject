@@ -1,0 +1,28 @@
+extends: team01_N1_long_bfm_400i.yaml
+name: team01_D3_def
+output: {name: team01, tag: D3_def}
+env_config:
+  selfplay_bt_prob: 0.0
+  # 방어 사다리 D3 — 근거리 오프셋. 상대가 **우리 뒤**(E 음수)에서 시작해 우리보다 빠르다.
+  # 난이도: 멀고 어긋날수록 쉽고, 가깝고 정렬될수록 어렵다(D4 가 거의 완전 6시).
+  reward:
+    angle_advantage_scale: 0.8          # 상대 ATA 를 벌리거나 우리가 되잡으면 보상 (기본 0)
+    angle_advantage_range_m: 3000.0
+    angle_advantage_progress_scale: 0.4 # 불리 -> 중립 **전환** 자체에 보상
+    alt_advantage_scale: 0.15
+    alt_advantage_range_m: 3000.0
+  initial_scenario:
+    mode: scenario_pool
+    shared_randomization: {enabled: true, n_m: 100.0, e_m: 100.0, d_m: 80.0, speed_mps: 10.0}
+    ownship_randomization: {enabled: true, radius: 80.0, r_roll: 10.0, r_pitch: 5.0, r_heading: 12.0, speed_mps: 10.0}
+    target_randomization: {enabled: true, radius: 100.0, r_roll: 10.0, r_pitch: 5.0, r_heading: 15.0, speed_mps: 10.0}
+    scenarios:
+      - {name: def_700_off, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [150.0, -700.0, -4572.0, 0.0, 0.0, 90.0, 250.0]}
+      - {name: def_900_off, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [150.0, -900.0, -4572.0, 0.0, 0.0, 90.0, 250.0]}
+      - {name: def_700_hi, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 230.0], target: [150.0, -700.0, -4872.0, 0.0, 0.0, 90.0, 250.0]}
+runtime:
+  init_bundle: C:/Users/JUN/Desktop/airop/Release_260722_plz/artifacts/models/team01/D2_def/bundle_000250
+  iterations: 250
+notes:
+  - "danger_exposure 는 베이스의 1.5 를 그대로 둔다 -- 0.3 은 피해 4배 자멸, 0.9 는 무효과로 이미 측정됐다."
+  - "판정: champion BT 단독 방어형 상대 -0.0026(사망3/36)을 넘어야 의미."

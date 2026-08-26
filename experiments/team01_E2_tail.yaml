@@ -1,0 +1,29 @@
+extends: team01_N1_long_bfm_400i.yaml
+name: team01_E2_tail
+output: {name: team01, tag: E2_tail}
+env_config:
+  selfplay_bt_prob: 0.0
+  # 꼬리 추격 전문가 E2 — 거리 300~500m. astern = 상대가 앞, 우리가 뒤.
+  # 이미 목표 상태에 가까울수록 쉬우므로 300m 부터 시작해 넓혀간다.
+  reward:
+    angle_advantage_scale: 0.8          # 우리 ATA < 상대 ATA 일 때 조밀 보상 (기본 0 = 꺼짐)
+    angle_advantage_range_m: 3000.0
+    angle_advantage_progress_scale: 0.3 # 궤도만 돌지 않고 공세로 **전환**하는 것에 보상
+    alt_advantage_scale: 0.15           # 에너지: 고도 우위 (기본 0 = 꺼짐)
+    alt_advantage_range_m: 3000.0
+  initial_scenario:
+    mode: scenario_pool
+    shared_randomization: {enabled: true, n_m: 100.0, e_m: 100.0, d_m: 80.0, speed_mps: 10.0}
+    ownship_randomization: {enabled: true, radius: 80.0, r_roll: 10.0, r_pitch: 5.0, r_heading: 12.0, speed_mps: 10.0}
+    target_randomization: {enabled: true, radius: 100.0, r_roll: 10.0, r_pitch: 5.0, r_heading: 15.0, speed_mps: 10.0}
+    scenarios:
+      - {name: astern_300, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 250.0], target: [0.0, 300.0, -4572.0, 0.0, 0.0, 90.0, 215.0]}
+      - {name: astern_450, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 250.0], target: [0.0, 450.0, -4572.0, 0.0, 0.0, 90.0, 215.0]}
+      - {name: astern_500, weight: 1.0, target_mode: behavior_tree, ownship: [0.0, 0.0, -4572.0, 0.0, 0.0, 90.0, 250.0], target: [0.0, 500.0, -4572.0, 0.0, 0.0, 90.0, 215.0]}
+runtime:
+  init_bundle: C:/Users/JUN/Desktop/airop/Release_260722_plz/artifacts/models/team01/E1_tail/bundle_000250
+  iterations: 250
+notes:
+  - "조준(원뿔)이 목표가 아니라 **위치 선점**이다. wez 는 대회 기본값(2/4/6) 그대로 둔다."
+  - "pursuit_scale 은 tactical_v1 에서 읽히지 않는 죽은 키다. angle_advantage_* 를 쓸 것."
+  - "판정: champion BT 단독(champion +0.0179 / 고도거부 +0.0298 / 방어형 -0.0026)을 넘어야 의미."

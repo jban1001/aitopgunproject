@@ -1,0 +1,60 @@
+<root main_tree_to_execute="MainTree">
+  <!--
+    2026-08-12 champion candidate v1: built from the first full pool
+    tournament's finding that base_bt (unconditional lead pursuit, no
+    caution) outranks both the s11/s12-doctrine YoYo and the full team01_v12
+    chain, matching team01_AI용_공중전교리.md's own warning ("human BFM
+    caution can be a net loss against an AI/code opponent"). Minimal
+    3-branch structure: hard-deck safety (world-up-fixed CombatClimb) ->
+    GunTrack close-range hold-the-pipper (team01_v12's own proven fix for
+    flash-across-and-slide-off) -> unconditional LeadPursuit otherwise. No
+    collision-lag reset, no reacquire-turn, no AngleOff caution gate, no
+    Yo-Yo diversion; aggression by default, safety only as a last resort.
+    Uses AIP_Team01_v12.dll (already has these nodes registered + the
+    2026-08-12 CombatClimb world-up crash fix).
+  -->
+  <BehaviorTree ID="MainTree">
+    <Sequence>
+      <SelectTarget name="SelectTarget" BB="{BB}"/>
+      <DirectionVectorUpdate name="DirectionVectorUpdate" BB="{BB}"/>
+      <DistanceUpdate name="DistanceUpdate" BB="{BB}"/>
+      <CheckSight name="CheckSight" BB="{BB}"/>
+      <AngleOffUpdate name="AngleOffUpdate" BB="{BB}"/>
+      <AspectAngleUpdate name="AspectAngleUpdate" BB="{BB}"/>
+
+      <Fallback>
+        <Sequence>
+          <DECO_LowAltitudeCheck name="HardDeckRecovery" Altitude="2000" BB="{BB}"/>
+          <Task_CombatClimb name="CombatClimb" BB="{BB}"/>
+        </Sequence>
+
+        <Sequence>
+          <DECO_DistanceCheck name="InGunRange" UpDown="Less" Distance="1400" BB="{BB}"/>
+          <Task_GunTrack name="GunTrack" BB="{BB}"/>
+        </Sequence>
+
+        <!-- 2026-08-13 (user: "상대의 los가 90보다 크고 우리 los가 30도
+             이내일때... lag를 튜닝해볼래"): control-position pursuit;
+             Los_Degree_Target>90 means the target's own gimbal can't see us
+             (EnemyInSight_Target's own cutoff is ~95.7deg), Los_Degree<=30
+             means we still have a solid track on it. Real BFM: don't rush
+             lead pursuit from here (telegraphs closure, risks overshoot);
+             hold lag until ready to snap to lead for the shot (matches
+             s11's original lag-before-lead principle this session's earlier
+             ① work targeted). Only reached outside gun range (GunTrack
+             branch above owns <1400m). far_* tuned fresh for this range
+             band; Task_LagPursuit's only other caller (team01_v12's
+             <120m collision reset) never touches the far tier, so these
+             values are free to tune without any regression risk there. -->
+        <Sequence>
+          <DECO_LOSCheck name="TheyCantSeeUs" Which="Target" UpDown="Greater" InputLOS="90" BB="{BB}"/>
+          <DECO_LOSCheck name="WeHaveTrack" Which="Own" UpDown="Less" InputLOS="30" BB="{BB}"/>
+          <Task_LagPursuit name="LagHoldControl" BB="{BB}"
+            far_back_offset_m="250" far_side_offset_m="100" far_up_offset_m="60" far_throttle="0.95"/>
+        </Sequence>
+
+        <Task_LeadPursuit name="LeadToClose" BB="{BB}"/>
+      </Fallback>
+    </Sequence>
+  </BehaviorTree>
+</root>
